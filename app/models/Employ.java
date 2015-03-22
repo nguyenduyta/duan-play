@@ -1,15 +1,28 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+ 
+
 public class Employ
 {
+	// Data sample
+	private static List<Employ> employs;
+	  static {
+		  employs = new ArrayList<Employ>();
+		  employs.add(new Employ("E1","Ta","01666606058","address1",1,"B1","K2","H1"));
+		  employs.add(new Employ("E2","Tuong","0987736812","address2",1,"B2","K1","H1"));
+		  employs.add(new Employ("E3","Tuan","0987362772","address3",1,"B1","K1","H2"));
+	  }
+	  
 	protected String id;
 	protected String name;
-	protected int phone_number;
+	protected String phone_number;
 	protected String address;
 	protected int gender;
-	protected int bomon_id;
-	protected int khoa_id;
-	protected int hopdong_id;
+	protected String bomon_id;
+	protected String khoa_id;
+	protected String hopdong_id;
 	
 	/**
 	 * 
@@ -29,8 +42,8 @@ public class Employ
 	 * @param khoa_id
 	 * @param hopdong_id
 	 */
-	public Employ(String id, String name, int phone_number, String address,
-			int gender, int bomon_id, int khoa_id, int hopdong_id) {
+	public Employ(String id, String name, String phone_number, String address,
+			int gender, String bomon_id, String khoa_id, String hopdong_id) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,7 +91,7 @@ public class Employ
 	/**
 	 * @return the phone_number
 	 */
-	public int getPhone_number() {
+	public String getPhone_number() {
 		return phone_number;
 	}
 
@@ -86,7 +99,7 @@ public class Employ
 	/**
 	 * @param phone_number the phone_number to set
 	 */
-	public void setPhone_number(int phone_number) {
+	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
 
@@ -126,7 +139,7 @@ public class Employ
 	/**
 	 * @return the bomon_id
 	 */
-	public int getBomon_id() {
+	public String getBomon_id() {
 		return bomon_id;
 	}
 
@@ -134,7 +147,7 @@ public class Employ
 	/**
 	 * @param bomon_id the bomon_id to set
 	 */
-	public void setBomon_id(int bomon_id) {
+	public void setBomon_id(String bomon_id) {
 		this.bomon_id = bomon_id;
 	}
 
@@ -142,7 +155,7 @@ public class Employ
 	/**
 	 * @return the khoa_id
 	 */
-	public int getKhoa_id() {
+	public String getKhoa_id() {
 		return khoa_id;
 	}
 
@@ -150,7 +163,7 @@ public class Employ
 	/**
 	 * @param khoa_id the khoa_id to set
 	 */
-	public void setKhoa_id(int khoa_id) {
+	public void setKhoa_id(String khoa_id) {
 		this.khoa_id = khoa_id;
 	}
 
@@ -158,7 +171,7 @@ public class Employ
 	/**
 	 * @return the hopdong_id
 	 */
-	public int getHopdong_id() {
+	public String getHopdong_id() {
 		return hopdong_id;
 	}
 
@@ -166,7 +179,7 @@ public class Employ
 	/**
 	 * @param hopdong_id the hopdong_id to set
 	 */
-	public void setHopdong_id(int hopdong_id) {
+	public void setHopdong_id(String hopdong_id) {
 		this.hopdong_id = hopdong_id;
 	}
 
@@ -181,5 +194,59 @@ public class Employ
 				+ (address != null ? "address=" + address : "") + "]";
 	}
 	
+	// Begin function for model
 	
+	/**
+	 * Return all of employs
+	 * @return employs
+	 */
+	public static List<Employ> findAll() {
+		return new ArrayList<Employ>(employs);
+	}
+	
+	/**
+	 * Return Employ by ID
+	 * @param id
+	 * @return
+	 */
+	public static Employ findById(String id) {
+		for (Employ candicate : employs) {
+			if (candicate.id.equals(id)) {
+				return candicate;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Return Employ by name
+	 * @param name
+	 * @return
+	 */
+	public static List<Employ> findByName(String name) {
+	    final List<Employ> results = new ArrayList<Employ>();
+	    for (Employ candidate : employs) {
+	      if (candidate.name.toLowerCase().contains(name.toLowerCase())) {
+	        results.add(candidate);
+	      }
+	    }
+	    return results;
+	  }
+	 
+	/**
+	 * Remove employ
+	 * @param Employ
+	 * @return
+	 */
+	  public static boolean remove(Employ Employ) {
+	    return employs.remove(Employ);
+	  }
+	 
+	  /**
+	   * save employ
+	   */
+	  public void save() {
+	    employs.remove(findById(this.id));
+	    employs.add(this);
+	  }
 }
