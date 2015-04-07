@@ -1,0 +1,38 @@
+@(employs: List[Employ]) @main("Employs catalogue") {
+<h2>All employs</h2>
+<script>
+   function del(urlToDelete) {
+      $.ajax({
+        url: urlToDelete,
+        type: 'DELETE',
+        success: function(results) {
+          location.reload();
+        }
+      });
+   }
+</script>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th> </th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(employ <- employs) {
+		<tr>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.id </a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.name</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.email</a></td>
+			<td><a onclick="del('@routes.Employs.delete(employ.id)')">Delete</a></td>
+		</tr>
+		}
+	</tbody>
+</table>
+<a href="@routes.Employs.newEmploy()" class="btn btn-primary">New employ</a>
+}
