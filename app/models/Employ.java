@@ -1,5 +1,6 @@
 package models;
 
+import play.data.validation.Constraints;
 import java.util.ArrayList;
 import java.util.List;
  
@@ -8,7 +9,7 @@ public class Employ
 {
 	// Data sample
 	private static List<Employ> employs;
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 	  static {
 		  employs = new ArrayList<Employ>();
 		  employs.add(new Employ("E1","Ta","01666606058","address1",1,"B1","K2","H1"));
@@ -16,16 +17,16 @@ public class Employ
 		  employs.add(new Employ("E3","Tuan","0987362772","address3",1,"B1","K1","H2"));
 	  }
 	  
-	protected String id;
+/*	protected String id;
 	protected String name;
-	protected String phone_number;
+	protected String phone_number;*/
 	protected String address;
-	protected int gender;
+	//protected int gender;
 	protected String bomon_id;
 	protected String khoa_id;
 	protected String hopdong_id;
 	
-=======
+//=======
 	static {
 		employs = new ArrayList<Employ>();
 //		employs.add(new Employ("E1", "Ta", "01/29/02", 1, "09299192029",
@@ -62,7 +63,7 @@ public class Employ
 	@Constraints.Required
 	public Contract contract = new Contract();
 
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	/**
 	 * 
 	 */
@@ -84,36 +85,37 @@ public class Employ
 	 */
 	public Employ(String id, String name, String phone_number, String address,
 			int gender, String bomon_id, String khoa_id, String hopdong_id) {
-=======
-	 * @param degree
+//=======
+	 /* @param degree
 	 * @param workplace
 	 * @param admin
 	 * @param dept
 	 * @param academic
 	 * @param contract
 	 */
+	 }
 	public Employ(String id, String name, String birthday, int gender,
 			String phone_number, String degree, String workplace, boolean admin,
 			Dept dept, Academic academic, Contract contract) {
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 		super();
 		this.id = id;
 		this.name = name;
 		this.phone_number = phone_number;
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 		this.address = address;
 		this.gender = gender;
 		this.bomon_id = bomon_id;
 		this.khoa_id = khoa_id;
 		this.hopdong_id = hopdong_id;
-=======
+//=======
 		this.degree = degree;
 		this.workplace = workplace;
 		this.admin = admin;
 		this.dept = dept;
 		this.academic = academic;
 		this.contract = contract;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 
 
@@ -164,14 +166,15 @@ public class Employ
 		this.phone_number = phone_number;
 	}
 
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 
 	/**
 	 * @return the address
 	 */
 	public String getAddress() {
 		return address;
-=======
+	}
+//=======
 	/**
 	 * @return the degree
 	 */
@@ -185,7 +188,7 @@ public class Employ
 	 */
 	public void setdegree(String degree) {
 		this.degree = degree;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 
 
@@ -227,12 +230,13 @@ public class Employ
 	 */
 	public void setBomon_id(String bomon_id) {
 		this.bomon_id = bomon_id;
-=======
-	 * @return the dept
+	}
+//=======
+	 /* @return the dept
 	 */
 	public Dept getDept() {
 		return dept;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 
 
@@ -242,12 +246,13 @@ public class Employ
 	 */
 	public String getKhoa_id() {
 		return khoa_id;
-=======
-	 * @param dept the dept to set
+	}
+//=======
+	 /* @param dept the dept to set
 	 */
 	public void setDept(Dept dept) {
 		this.dept = dept;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 
 
@@ -257,12 +262,13 @@ public class Employ
 	 */
 	public void setKhoa_id(String khoa_id) {
 		this.khoa_id = khoa_id;
-=======
-	 * @return the academic
+	}
+//=======
+	 /* @return the academic
 	 */
 	public Academic getAcademic() {
 		return academic;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 
 
@@ -272,12 +278,13 @@ public class Employ
 	 */
 	public String getHopdong_id() {
 		return hopdong_id;
-=======
-	 * @param academic the academic to set
+	}
+//=======
+	 /* @param academic the academic to set
 	 */
 	public void setAcademic(Academic academic) {
 		this.academic = academic;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 
 
@@ -298,8 +305,9 @@ public class Employ
 		return "Employ [" + (name != null ? "name=" + name + ", " : "")
 				+ "phone_number=" + phone_number + ", "
 				+ (address != null ? "address=" + address : "") + "]";
-=======
-	 * @return the contract
+	}
+//=======
+	 /* @return the contract
 	 */
 	public Contract getContract() {
 		return contract;
@@ -310,7 +318,7 @@ public class Employ
 	 */
 	public void setContract(Contract contract) {
 		this.contract = contract;
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 	}
 	
 	// Begin function for model

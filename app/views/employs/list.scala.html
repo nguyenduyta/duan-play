@@ -1,4 +1,5 @@
-@(employs: List[Employ]) @main("Employs catalogue") {
+@(employs: List[Employ])
+@main("Employs catalogue") {
 <h2>All employs</h2>
 <script>
    function del(urlToDelete) {
@@ -27,8 +28,6 @@
 					@employ.id </a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">
 					@employ.name</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.email</a></td>
 			<td><a onclick="del('@routes.Employs.delete(employ.id)')">Delete</a></td>
 		</tr>
 		}

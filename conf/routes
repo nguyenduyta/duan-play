@@ -5,19 +5,19 @@
 GET     /                           controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
-<<<<<<< Updated upstream
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
-GET		/employ					controllers.Employ.list()
-GET		/employ/new				controllers.Employ.newEmploy()
-GET		/employ/id					controllers.Employ.details(id:String)
-POST	/employ					controllers.Employ.save()
-=======
+#<<<<<<< Updated upstream
+#GET     /assets/*file              controllers.Assets.at(path="/public", file)
+#GET     /webjars/*file             controllers.WebJarAssets.at(file)
+#GET		/employ					controllers.Employ.list()
+#GET		/employ/new				controllers.Employ.newEmploy()
+#GET		/employ/id				controllers.Employ.details(id:String)
+#POST	/employ			    		controllers.Employ.save()
+#=======
 GET    /assets/*file    controllers.Assets.at(path="/public", file)
 GET    /webjars/*file   controllers.WebJarAssets.at(file)
 GET    /employ/new      controllers.Employs.newEmploy()
 GET    /employ/id       controllers.Employs.details(id:String)
-POST   /employ          controllers.Employs.save()
-GET    /employ          controllers.Employs.list()
+POST   /employ/          controllers.Employs.save()
+GET    /employ/          controllers.Employs.list()
 DELETE  /employs/:id  controllers.Employs.delete(id: String)
->>>>>>> Stashed changes
+#>>>>>>> Stashed changes

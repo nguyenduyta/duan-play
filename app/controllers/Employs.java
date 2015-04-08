@@ -1,17 +1,16 @@
 package controllers;
 
 import play.data.Form;
+import java.util.List;
+import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.employs.*;
-
-import java.util.List;
-
 import models.Employ;
 
 public class Employs extends Controller {
 
-	private static final Form<Employ> employForm = Form.form(Employ.class);
+	private static final Form<Employ> EmployForm = Form.form(Employ.class);
 
 	public static Result list() {
 		List<Employ> employs = Employ.findAll();
@@ -19,11 +18,11 @@ public class Employs extends Controller {
 	}
 
 	public static Result newEmploy() {
-		return ok(details.render(employForm));
+		return ok(details.render(EmployForm));
 	}
 
 	public static Result save() {
-		Form<Employ> boundForm = employForm.bindFromRequest();
+		Form<Employ> boundForm = EmployForm.bindFromRequest();
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct the form below.");
 			return badRequest(details.render(boundForm));
@@ -39,7 +38,7 @@ public class Employs extends Controller {
 		if (employ == null) {
 			return notFound(String.format("Product %s does not exist.", id));
 		}
-		Form<Employ> filledForm = employForm.fill(employ);
+		Form<Employ> filledForm = EmployForm.fill(employ);
 		return ok(details.render(filledForm));
 	}
 
