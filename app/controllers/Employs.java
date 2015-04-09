@@ -6,8 +6,10 @@ import play.mvc.Result;
 import views.html.employs.*;
 
 import java.util.List;
-
-import models.Employ;
+import models.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.employs.*;
 
 public class Employs extends Controller {
 

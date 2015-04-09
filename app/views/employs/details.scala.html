@@ -1,0 +1,18 @@
+@(EmployForm: Form[Employ])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Employ form") {
+  <h1>Employ form</h1>
+  @helper.form(action = routes.Employs.save()) {
+   <input type="hidden" value="@EmployForm("id").valueOr("")" name="id"/>
+    <fieldset>
+       <legend>Employ (@EmployForm("name").valueOr("New"))</legend>
+       @helper.inputText(EmployForm("id"), '_label -> "ID")
+       @helper.inputText(EmployForm("name"), '_label -> "Name")
+       @helper.textarea(EmployForm("Email"), '_label -> "Email")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Employs.list()">Cancel</a>
+  }
+}
