@@ -15,9 +15,14 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>id</th>
+			<th>ID</th>
 			<th>Name</th>
+			<th>Address</th>
 			<th>Email</th>
+			<th>Gender</th>
+			<th>Birthday</th>
+			<th>Phone Number</th>
+			<th>Degree</th>
 			<th> </th>
 		</tr>
 	</thead>
@@ -28,6 +33,18 @@
 					@employ.id </a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">
 					@employ.name</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.address</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.email</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.gender</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.birthday</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.phone_number</a></td>
+			<td><a href=" @routes.Employs.details(employ.id)">
+					@employ.degree</a></td>
 			<td><a onclick="del('@routes.Employs.delete(employ.id)')">Delete</a></td>
 		</tr>
 		}

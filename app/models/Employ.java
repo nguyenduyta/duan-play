@@ -20,7 +20,7 @@ public class Employ
 /*	protected String id;
 	protected String name;
 	protected String phone_number;*/
-	protected String address;
+	public String address;
 	//protected int gender;
 	protected String bomon_id;
 	protected String khoa_id;
@@ -41,26 +41,27 @@ public class Employ
 //				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
 	}
 
-	@Constraints.Required
+	//@Constraints.Required
 	public String id;
-	@Constraints.Required
+	//@Constraints.Required
 	public String name;
-	@Constraints.Required
+	public String email;
+	//@Constraints.Required
 	public String birthday;
 	public int gender;
-	@Constraints.Required
+	//@Constraints.Required
 	public String phone_number;
-	@Constraints.Required
+	//@Constraints.Required
 	public String degree; // học vị: Cử nhân/thạc sĩ/ tiến sĩ
-	@Constraints.Required
+	//@Constraints.Required
 	public String workplace;
-	@Constraints.Required
+	//@Constraints.Required
 	public boolean admin;
-	@Constraints.Required
+	//@Constraints.Required
 	public Dept dept = new Dept();
-	@Constraints.Required
+	//@Constraints.Required
 	public Academic academic = new Academic();
-	@Constraints.Required
+	//@Constraints.Required
 	public Contract contract = new Contract();
 
 //>>>>>>> Stashed changes
@@ -365,15 +366,15 @@ public class Employ
 	 * @param Employ
 	 * @return
 	 */
-	  public static boolean remove(Employ Employ) {
-	    return employs.remove(Employ);
+	  public static boolean remove(Employ employ) {
+	    return employs.remove(employ);
 	  }
 	 
 	  /**
 	   * save employ
 	   */
 	  public void save() {
-	    employs.remove(findById(this.id));
+	    //employs.remove(findById(this.id));
 	    employs.add(this);
 	  }
 }

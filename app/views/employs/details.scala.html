@@ -10,7 +10,12 @@
        <legend>Employ (@EmployForm("name").valueOr("New"))</legend>
        @helper.inputText(EmployForm("id"), '_label -> "ID")
        @helper.inputText(EmployForm("name"), '_label -> "Name")
-       @helper.textarea(EmployForm("Email"), '_label -> "Email")
+       @helper.textarea(EmployForm("address"), '_label -> "Address")
+       @helper.textarea(EmployForm("email"), '_label -> "Email")
+       @helper.inputText(EmployForm("gender"), '_label -> "Gender")
+       @helper.inputText(EmployForm("birthday"), '_label -> "Birthday")
+       @helper.inputText(EmployForm("phone_number"), '_label -> "Phone number")
+       @helper.inputText(EmployForm("degree"), '_label -> "degree")
     </fieldset>
     <input type="submit" class="btn btn-primary" value="Save">
     <a class="btn" href="@routes.Employs.list()">Cancel</a>
