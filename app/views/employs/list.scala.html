@@ -30,7 +30,7 @@
 		@for(employ <- employs) {
 		<tr>
 			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.id </a></td>
+					@employ.id2 </a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">
 					@employ.name</a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">
@@ -45,7 +45,7 @@
 					@employ.phone_number</a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">
 					@employ.degree</a></td>
-			<td><a onclick="del('@routes.Employs.delete(employ.id)')">Delete</a></td>
+			<td><a onclick="del('@routes.Employs.delete(employ.id)')"><i class="icon icon-trash"></i></a></td>
 		</tr>
 		}
 	</tbody>

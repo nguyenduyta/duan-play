@@ -9,17 +9,11 @@ public class Employ
 {
 	// Data sample
 	private static List<Employ> employs;
-//<<<<<<< Updated upstream
-	  static {
-		  employs = new ArrayList<Employ>();
-		  employs.add(new Employ("E1","Ta","01666606058","address1",1,"B1","K2","H1"));
-		  employs.add(new Employ("E2","Tuong","0987736812","address2",1,"B2","K1","H1"));
-		  employs.add(new Employ("E3","Tuan","0987362772","address3",1,"B1","K1","H2"));
-	  }
 	  
 /*	protected String id;
 	protected String name;
 	protected String phone_number;*/
+	@Constraints.Required
 	public String address;
 	//protected int gender;
 	protected String bomon_id;
@@ -29,29 +23,26 @@ public class Employ
 //=======
 	static {
 		employs = new ArrayList<Employ>();
-//		employs.add(new Employ("E1", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E2", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E3", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E4", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E5", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
+/*		  employs.add(new Employ("E1","Ta","01666606058","address1","1","B1","K2","H1"));
+		  employs.add(new Employ("E2","Tuong","0987736812","address2","1","B2","K1","H1"));
+		  employs.add(new Employ("E3","Tuan","0987362772","address3","1","B1","K1","H2"));*/
 	}
 
 	//@Constraints.Required
 	public String id;
-	//@Constraints.Required
+	@Constraints.Required
+	public String id2;
+	@Constraints.Required
 	public String name;
+	@Constraints.Required
 	public String email;
-	//@Constraints.Required
+	@Constraints.Required
 	public String birthday;
-	public int gender;
-	//@Constraints.Required
+	@Constraints.Required
+	public String gender;
+	@Constraints.Required
 	public String phone_number;
-	//@Constraints.Required
+	@Constraints.Required
 	public String degree; // học vị: Cử nhân/thạc sĩ/ tiến sĩ
 	//@Constraints.Required
 	public String workplace;
@@ -85,7 +76,7 @@ public class Employ
 	 * @param hopdong_id
 	 */
 	public Employ(String id, String name, String phone_number, String address,
-			int gender, String bomon_id, String khoa_id, String hopdong_id) {
+			String gender, String bomon_id, String khoa_id, String hopdong_id) {
 //=======
 	 /* @param degree
 	 * @param workplace
@@ -95,7 +86,7 @@ public class Employ
 	 * @param contract
 	 */
 	 }
-	public Employ(String id, String name, String birthday, int gender,
+	public Employ(String id, String name, String birthday, String gender,
 			String phone_number, String degree, String workplace, boolean admin,
 			Dept dept, Academic academic, Contract contract) {
 //>>>>>>> Stashed changes
@@ -204,7 +195,7 @@ public class Employ
 	/**
 	 * @return the gender
 	 */
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
 
@@ -212,7 +203,7 @@ public class Employ
 	/**
 	 * @param gender the gender to set
 	 */
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
