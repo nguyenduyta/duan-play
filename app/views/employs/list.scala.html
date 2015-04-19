@@ -15,7 +15,6 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>ID</th>
 			<th>Name</th>
 			<th>Address</th>
 			<th>Email</th>
@@ -29,8 +28,6 @@
 	<tbody>
 		@for(employ <- employs) {
 		<tr>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.id2 </a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">
 					@employ.name</a></td>
 			<td><a href=" @routes.Employs.details(employ.id)">

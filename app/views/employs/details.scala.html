@@ -8,10 +8,9 @@
    <input type="hidden" value="@EmployForm("id").valueOr("")" name="id"/>
     <fieldset>
        <legend>Employ (@EmployForm("name").valueOr("New"))</legend>
-       @helper.inputText(EmployForm("id2"), '_label -> "ID")
        @helper.inputText(EmployForm("name"), 'placeholder -> "Your name",'_label -> "Name")
-       @helper.textarea(EmployForm("address"), '_label -> "Address")
-       @helper.textarea(EmployForm("email"), '_label -> "Email")
+       @helper.inputText(EmployForm("address"), '_label -> "Address")
+       @helper.inputText(EmployForm("email"), '_label -> "Email")
        @helper.select(EmployForm("Gender"), options = options("Male"->"Male", "Female"->"Female"),'_label -> "Gender")
        @helper.inputText(EmployForm("birthday"), 'placeholder -> "dd/mm/yyyy", '_label -> "Birthday")
        @helper.inputText(EmployForm("phone_number"), '_label -> "Phone number")
