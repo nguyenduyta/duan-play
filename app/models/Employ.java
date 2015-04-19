@@ -9,42 +9,53 @@ public class Employ
 {
 	// Data sample
 	private static List<Employ> employs;
+	  
+/*	protected String id;
+	protected String name;
+	protected String phone_number;*/
+	@Constraints.Required
+	public String address;
+	//protected int gender;
+	protected String bomon_id;
+	protected String khoa_id;
+	protected String hopdong_id;
+	
+//=======
 	static {
 		employs = new ArrayList<Employ>();
-//		employs.add(new Employ("E1", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E2", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E3", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E4", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
-//		employs.add(new Employ("E5", "Ta", "01/29/02", 1, "09299192029",
-//				"tand@gmail.com", "workplace1", true, "D1", "A1", "C1"));
+/*		  employs.add(new Employ("E1","Ta","01666606058","address1","1","B1","K2","H1"));
+		  employs.add(new Employ("E2","Tuong","0987736812","address2","1","B2","K1","H1"));
+		  employs.add(new Employ("E3","Tuan","0987362772","address3","1","B1","K1","H2"));*/
 	}
 
-	@Constraints.Required
+	//@Constraints.Required
 	public String id;
+	@Constraints.Required
+	public String id2;
 	@Constraints.Required
 	public String name;
 	@Constraints.Required
+	public String email;
+	@Constraints.Required
 	public String birthday;
-	public int gender;
+	@Constraints.Required
+	public String gender;
 	@Constraints.Required
 	public String phone_number;
 	@Constraints.Required
 	public String degree; // học vị: Cử nhân/thạc sĩ/ tiến sĩ
-	@Constraints.Required
+	//@Constraints.Required
 	public String workplace;
-	@Constraints.Required
+	//@Constraints.Required
 	public boolean admin;
-	@Constraints.Required
+	//@Constraints.Required
 	public Dept dept = new Dept();
-	@Constraints.Required
+	//@Constraints.Required
 	public Academic academic = new Academic();
-	@Constraints.Required
+	//@Constraints.Required
 	public Contract contract = new Contract();
 
+//>>>>>>> Stashed changes
 	/**
 	 * 
 	 */
@@ -56,31 +67,47 @@ public class Employ
 	/**
 	 * @param id
 	 * @param name
-	 * @param birthday
-	 * @param gender
 	 * @param phone_number
-	 * @param degree
+<<<<<<< Updated upstream
+	 * @param address
+	 * @param gender
+	 * @param bomon_id
+	 * @param khoa_id
+	 * @param hopdong_id
+	 */
+	public Employ(String id, String name, String phone_number, String address,
+			String gender, String bomon_id, String khoa_id, String hopdong_id) {
+//=======
+	 /* @param degree
 	 * @param workplace
 	 * @param admin
 	 * @param dept
 	 * @param academic
 	 * @param contract
 	 */
-	public Employ(String id, String name, String birthday, int gender,
+	 }
+	public Employ(String id, String name, String birthday, String gender,
 			String phone_number, String degree, String workplace, boolean admin,
 			Dept dept, Academic academic, Contract contract) {
+//>>>>>>> Stashed changes
 		super();
 		this.id = id;
 		this.name = name;
-		this.birthday = birthday
-		this.gender = gender
 		this.phone_number = phone_number;
+//<<<<<<< Updated upstream
+		this.address = address;
+		this.gender = gender;
+		this.bomon_id = bomon_id;
+		this.khoa_id = khoa_id;
+		this.hopdong_id = hopdong_id;
+//=======
 		this.degree = degree;
 		this.workplace = workplace;
 		this.admin = admin;
 		this.dept = dept;
 		this.academic = academic;
 		this.contract = contract;
+//>>>>>>> Stashed changes
 	}
 
 
@@ -131,6 +158,15 @@ public class Employ
 		this.phone_number = phone_number;
 	}
 
+//<<<<<<< Updated upstream
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+//=======
 	/**
 	 * @return the degree
 	 */
@@ -144,12 +180,22 @@ public class Employ
 	 */
 	public void setdegree(String degree) {
 		this.degree = degree;
+//>>>>>>> Stashed changes
 	}
+
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 
 	/**
 	 * @return the gender
 	 */
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
 
@@ -157,43 +203,103 @@ public class Employ
 	/**
 	 * @param gender the gender to set
 	 */
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-	 * @return the dept
+
+	/**
+	 * @return the bomon_id
+	 */
+	public String getBomon_id() {
+		return bomon_id;
+	}
+
+
+	/**
+<<<<<<< Updated upstream
+	 * @param bomon_id the bomon_id to set
+	 */
+	public void setBomon_id(String bomon_id) {
+		this.bomon_id = bomon_id;
+	}
+//=======
+	 /* @return the dept
 	 */
 	public Dept getDept() {
 		return dept;
+//>>>>>>> Stashed changes
 	}
 
 
 	/**
-	 * @param dept the dept to set
+<<<<<<< Updated upstream
+	 * @return the khoa_id
+	 */
+	public String getKhoa_id() {
+		return khoa_id;
+	}
+//=======
+	 /* @param dept the dept to set
 	 */
 	public void setDept(Dept dept) {
 		this.dept = dept;
+//>>>>>>> Stashed changes
 	}
 
 
 	/**
-	 * @return the academic
+<<<<<<< Updated upstream
+	 * @param khoa_id the khoa_id to set
+	 */
+	public void setKhoa_id(String khoa_id) {
+		this.khoa_id = khoa_id;
+	}
+//=======
+	 /* @return the academic
 	 */
 	public Academic getAcademic() {
 		return academic;
+//>>>>>>> Stashed changes
 	}
 
 
 	/**
-	 * @param academic the academic to set
+<<<<<<< Updated upstream
+	 * @return the hopdong_id
+	 */
+	public String getHopdong_id() {
+		return hopdong_id;
+	}
+//=======
+	 /* @param academic the academic to set
 	 */
 	public void setAcademic(Academic academic) {
 		this.academic = academic;
+//>>>>>>> Stashed changes
 	}
 
 
 	/**
-	 * @return the contract
+<<<<<<< Updated upstream
+	 * @param hopdong_id the hopdong_id to set
+	 */
+	public void setHopdong_id(String hopdong_id) {
+		this.hopdong_id = hopdong_id;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Employ [" + (name != null ? "name=" + name + ", " : "")
+				+ "phone_number=" + phone_number + ", "
+				+ (address != null ? "address=" + address : "") + "]";
+	}
+//=======
+	 /* @return the contract
 	 */
 	public Contract getContract() {
 		return contract;
@@ -204,6 +310,7 @@ public class Employ
 	 */
 	public void setContract(Contract contract) {
 		this.contract = contract;
+//>>>>>>> Stashed changes
 	}
 	
 	// Begin function for model
@@ -250,15 +357,15 @@ public class Employ
 	 * @param Employ
 	 * @return
 	 */
-	  public static boolean remove(Employ Employ) {
-	    return employs.remove(Employ);
+	  public static boolean remove(Employ employ) {
+	    return employs.remove(employ);
 	  }
 	 
 	  /**
 	   * save employ
 	   */
 	  public void save() {
-	    employs.remove(findById(this.id));
+	    //employs.remove(findById(this.id));
 	    employs.add(this);
 	  }
 }
