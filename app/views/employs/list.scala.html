@@ -15,6 +15,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
+        <th>Employ Id</th>
         <th>Name</th>
 		<th>Email</th>
         <th>Address</th>
@@ -32,28 +33,18 @@
     <tbody>
     @for(employ <- employs) {
     <tr>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.name</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.email</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.address</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.gender</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.birthday</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.phone_number</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.degree</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.academic</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.workplace</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.dept</a></td>
-        <td><a href=" @routes.Employs.details(employ.id)">
-            @employ.contract</a></td>
+        <td>@employ.id</td>
+        <td>@employ.name</td>
+        <td>@employ.email</td>
+        <td>@employ.address</td>
+        <td>@employ.gender</td>
+        <td>@employ.birthday</td>
+        <td>@employ.phone_number</td>
+        <td>@employ.degree</td>
+        <td>@employ.academic</td>
+        <td>@employ.workplace</td>
+        <td>@employ.dept</td>
+        <td>@employ.contract</td>
         <td>
         	<a href=" @routes.Employs.details(employ.id)"><i class="icon icon-pencil"></i></a>
         	<a onclick="del('@routes.Employs.delete(employ.id)')"><i class="icon icon-trash"></i></a>

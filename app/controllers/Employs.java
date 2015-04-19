@@ -32,14 +32,14 @@ public class Employs extends Controller {
 		}
 		Employ employ = boundForm.get();
 		employ.save();
-		flash("success", String.format("Successfully added product %s", employ));
+		flash("success", String.format("Successfully added product."));
 		return redirect(routes.Employs.list());
 	}
 
 	public static Result details(String id) {
 		final Employ employ = Employ.findById(id);
 		if (employ == null) {
-			return notFound(String.format("Product %s does not exist.", id));
+			return notFound(String.format("Product does not exist."));
 		}
 		Form<Employ> filledForm = employForm.fill(employ);
 		return ok(details.render(filledForm));
@@ -48,7 +48,7 @@ public class Employs extends Controller {
 	public static Result delete(String id) {
 		final Employ employ = Employ.findById(id);
 		if (employ == null) {
-			return notFound(String.format("Employ %s does not exists.", id));
+			return notFound(String.format("Employ does not exists."));
 		}
 		Employ.remove(employ);
 		return redirect(routes.Employs.list());

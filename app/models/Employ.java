@@ -14,6 +14,7 @@ public class Employ
 		//employs.add(new Employ("xxx","xxx","xxx","xxx","xxx","xxx","xxx",true,"xxx","xxx","xxx"));
 	}
 
+	@Constraints.Required
 	public String id;
 	@Constraints.Required
 	public String name;
@@ -49,6 +50,7 @@ public class Employ
 
 
 	/**
+	 * @param id
 	 * @param name
 	 * @param address
 	 * @param email
@@ -61,9 +63,10 @@ public class Employ
 	 * @param academic
 	 * @param contract
 	 */
-	public Employ(String name, String address, String email, String phone_number, String gender,
+	public Employ(String id, String name, String address, String email, String phone_number, String gender,
 		String degree, String workplace, boolean admin, String dept, String academic, String contract) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.email = email;
@@ -77,10 +80,24 @@ public class Employ
 	}
 
 	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return this.id;
+	}
+
+	/**
+	 * @param eid the eid to set
+	 */
+	public void setEid(String id) {
+		this.id = id;
+	}
+
+	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 
@@ -96,7 +113,7 @@ public class Employ
 	 * @return the phone_number
 	 */
 	public String getPhone_number() {
-		return phone_number;
+		return this.phone_number;
 	}
 
 
@@ -111,7 +128,7 @@ public class Employ
 	 * @return the address
 	 */
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	/**
@@ -125,7 +142,7 @@ public class Employ
 	 * @return the degree
 	 */
 	public String getdegree() {
-		return degree;
+		return this.degree;
 	}
 
 	/**
@@ -140,7 +157,7 @@ public class Employ
 	 * @return the gender
 	 */
 	public String getGender() {
-		return gender;
+		return this.gender;
 	}
 
 
@@ -156,7 +173,7 @@ public class Employ
 	 * @return the dept
 	 */
 	public String getDept() {
-		return dept;
+		return this.dept;
 	}
 
 	 /**
@@ -170,7 +187,7 @@ public class Employ
 	 * @return the academic
 	 */
 	public String getAcademic() {
-		return academic;
+		return this.academic;
 	}
 
 	 /**
@@ -184,7 +201,7 @@ public class Employ
 	 * @return the contract
 	 */
 	public String getContract() {
-		return contract;
+		return this.contract;
 	}
 
 	/**
