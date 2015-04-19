@@ -31,8 +31,6 @@ public class Employ
 	//@Constraints.Required
 	public String id;
 	@Constraints.Required
-	public String id2;
-	@Constraints.Required
 	public String name;
 	@Constraints.Required
 	public String email;
