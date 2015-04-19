@@ -2,50 +2,65 @@
 @main("Employs catalogue") {
 <h2>All employs</h2>
 <script>
-   function del(urlToDelete) {
-      $.ajax({
-        url: urlToDelete,
-        type: 'DELETE',
-        success: function(results) {
-          location.reload();
-        }
-      });
-   }
+    function del(urlToDelete) {
+        $.ajax({
+            url: urlToDelete,
+            type: 'DELETE',
+            success: function (results) {
+                location.reload();
+            }
+        });
+    }
 </script>
 <table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Address</th>
-			<th>Email</th>
-			<th>Gender</th>
-			<th>Birthday</th>
-			<th>Phone Number</th>
-			<th>Degree</th>
-			<th> </th>
-		</tr>
-	</thead>
-	<tbody>
-		@for(employ <- employs) {
-		<tr>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.name</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.address</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.email</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.gender</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.birthday</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.phone_number</a></td>
-			<td><a href=" @routes.Employs.details(employ.id)">
-					@employ.degree</a></td>
-			<td><a onclick="del('@routes.Employs.delete(employ.id)')"><i class="icon icon-trash"></i></a></td>
-		</tr>
-		}
-	</tbody>
+    <thead>
+    <tr>
+        <th>Name</th>
+		<th>Email</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Birthday</th>
+        <th>Phone Number</th>
+        <th>Degree</th>
+        <th>Academic</th>
+        <th>Workplace</th>
+        <th>Department</th>
+        <th>Contract</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @for(employ <- employs) {
+    <tr>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.name</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.email</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.address</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.gender</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.birthday</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.phone_number</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.degree</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.academic</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.workplace</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.dept</a></td>
+        <td><a href=" @routes.Employs.details(employ.id)">
+            @employ.contract</a></td>
+        <td>
+        	<a href=" @routes.Employs.details(employ.id)"><i class="icon icon-pencil"></i></a>
+        	<a onclick="del('@routes.Employs.delete(employ.id)')"><i class="icon icon-trash"></i></a>
+        </td>
+    </tr>
+    }
+    </tbody>
 </table>
 <a href="@routes.Employs.newEmploy()" class="btn btn-primary">New employ</a>
 }
