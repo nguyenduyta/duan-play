@@ -1,15 +1,12 @@
 package controllers;
 
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
+import play.data.*;
+import play.mvc.*;
 import views.html.employs.*;
-
-import java.util.List;
+import java.util.*;
 import models.*;
-import play.mvc.Controller;
-import play.mvc.Result;
-import views.html.employs.*;
+import play.db.ebean.*;
+import javax.persistence.*;
 
 public class Employs extends Controller {
 
@@ -21,7 +18,7 @@ public class Employs extends Controller {
 	}
 
 	public static Result newEmploy() {
-		return ok(details.render(employForm));
+		return ok(news.render(employForm));
 	}
 
 	public static Result save() {
@@ -31,12 +28,18 @@ public class Employs extends Controller {
 			return badRequest(details.render(boundForm));
 		}
 		Employ employ = boundForm.get();
-		employ.save();
-		flash("success", String.format("Successfully added product."));
+		Employ employ_other = Employ.findById(employ.id);
+		if (employ_other == null) {
+			employ.save();
+			flash("success", String.format("Successfully added product."));
+		} else {
+			employ.update();
+			flash("success", String.format("Successfully updated product."));
+		}
 		return redirect(routes.Employs.list());
 	}
 
-	public static Result details(String id) {
+	public static Result details(Long id) {
 		final Employ employ = Employ.findById(id);
 		if (employ == null) {
 			return notFound(String.format("Product does not exist."));
@@ -45,12 +48,12 @@ public class Employs extends Controller {
 		return ok(details.render(filledForm));
 	}
 
-	public static Result delete(String id) {
+	public static Result delete(Long id) {
 		final Employ employ = Employ.findById(id);
 		if (employ == null) {
 			return notFound(String.format("Employ does not exists."));
 		}
-		Employ.remove(employ);
+		employ.delete();
 		return redirect(routes.Employs.list());
 	}
 }
