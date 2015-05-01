@@ -12,48 +12,55 @@ public class Employs extends Controller {
 
 	private static final Form<Employ> employForm = Form.form(Employ.class);
 
-	public static Result list() {
+	public static Result index() {
 		List<Employ> employs = Employ.findAll();
-		return ok(list.render(employs));
+		return ok(index.render(employs));
 	}
 
-	public static Result newEmploy() {
+	public static Result newRecord() {
 		return ok(news.render(employForm));
 	}
 
-	public static Result save() {
+	public static Result create() {
 		Form<Employ> boundForm = employForm.bindFromRequest();
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct the form below.");
-			return badRequest(details.render(boundForm));
+			return ok(news.render(boundForm));
 		}
 		Employ employ = boundForm.get();
-		Employ employ_other = Employ.findById(employ.id);
-		if (employ_other == null) {
-			employ.save();
-			flash("success", String.format("Successfully added product."));
-		} else {
-			employ.update();
-			flash("success", String.format("Successfully updated product."));
-		}
-		return redirect(routes.Employs.list());
+		employ.save();
+		flash("success", String.format("Successfully added employ."));
+		return redirect(routes.Employs.index());
 	}
 
-	public static Result details(Long id) {
+	public static Result update(Long id) {
+		Form<Employ> boundForm = employForm.bindFromRequest();
+		if (boundForm.hasErrors()) {
+			final Employ employ = Employ.findById(id);
+			flash("error", "Please correct the form below.");
+			return ok(edit.render(boundForm, employ));
+		}
+		Employ employ = boundForm.get();
+		employ.update();
+		flash("success", String.format("Successfully updated employ."));
+		return redirect(routes.Employs.index());
+	}
+
+	public static Result edit(Long id) {
 		final Employ employ = Employ.findById(id);
 		if (employ == null) {
-			return notFound(String.format("Product does not exist."));
+			return notFound(String.format("Employ does not exist."));
 		}
 		Form<Employ> filledForm = employForm.fill(employ);
-		return ok(details.render(filledForm));
+		return ok(edit.render(filledForm, employ));
 	}
 
-	public static Result delete(Long id) {
+	public static Result destroy(Long id) {
 		final Employ employ = Employ.findById(id);
 		if (employ == null) {
 			return notFound(String.format("Employ does not exists."));
 		}
 		employ.delete();
-		return redirect(routes.Employs.list());
+		return redirect(routes.Employs.index());
 	}
 }

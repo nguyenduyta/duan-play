@@ -1,0 +1,16 @@
+@(ContractForm: Form[Contract])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Contract form") {
+  <h1>Contract form</h1>
+  @helper.form(action = routes.Contracts.create()) {
+    <fieldset>
+       <legend>Contract (@ContractForm("name").valueOr("New"))</legend>
+       @helper.inputText(ContractForm("name"), 'placeholder -> "Contract name",'_label -> "Contract name", 'class -> "form-control")
+       @helper.textarea(ContractForm("description"), '_label -> "Description", 'class -> "form-control")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Contracts.index()">Cancel</a>
+  }
+}

@@ -1,0 +1,17 @@
+@(DegreeForm: Form[Degree], degree: models.Degree)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Degree form") {
+  <h1>Degree form</h1>
+  @helper.form(action = routes.Degrees.update(degree.id)) {
+    <fieldset>
+       <legend>Degree (@DegreeForm("name").valueOr("New"))</legend>
+       <input type="hidden" value="@degree.id" name="id" >
+       @helper.inputText(DegreeForm("name"), 'placeholder -> "Degree name",'_label -> "Degree name", '_showConstraints -> false, 'class -> "form-control")
+       @helper.textarea(DegreeForm("description"), '_label -> "Description", '_showConstraints -> false, 'class -> "form-control")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Degrees.index()">Cancel</a>
+  }
+}

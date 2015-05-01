@@ -1,12 +1,14 @@
-@(EmployForm: Form[Employ])
+@(EmployForm: Form[Employ], employ: models.Employ)
 @import helper._
 @import helper.twitterBootstrap._
 
 @main("Employ form") {
   <h1>Employ form</h1>
-  @helper.form(action = routes.Employs.create()) {
+  @helper.form(action = routes.Employs.update(employ.id)) {
     <fieldset>
         <legend>Employ (@EmployForm("name").valueOr("New"))</legend>
+        <input type="hidden" value="@employ.id" name="id" >
+
         @helper.inputText(EmployForm("name"), 'placeholder -> "Your name",'_label -> "Name", '_showConstraints -> false, 'class -> "form-control")
 
         @helper.textarea(EmployForm("address"), '_label -> "Address", '_showConstraints -> false, 'class -> "form-control")
