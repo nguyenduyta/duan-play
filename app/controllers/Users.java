@@ -9,45 +9,62 @@ import play.db.ebean.*;
 import javax.persistence.*;
 import org.mindrot.jbcrypt.BCrypt;
 
+@Security.Authenticated(Secured.class)
 public class Users extends Controller {
 
 	private static final Form<User> userForm = Form.form(User.class);
+	private static final User current_user = User.findByEmail(request().username());
 
 	public static Result index() {
-		List<User> users = User.findAll();
-		return ok(index.render(users));
+		if (Secured.isAdmin()) {
+			List<User> users = User.findAll();
+			return ok(index.render(users, current_user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
+		}
 	}
 
 	public static Result newRecord() {
-		return ok(news.render(userForm));
+		if (Secured.isAdmin()) {
+			return ok(news.render(userForm, current_user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
+		}
 	}
 
 	public static Result create() {
-		Form<User> boundForm = userForm.bindFromRequest();
+		if (Secured.isAdmin()) {
+			Form<User> boundForm = userForm.bindFromRequest();
 
-		String password_confirmation = boundForm.field("password_confirmation").valueOr("");
-		String password = boundForm.field("password").valueOr("");
-		if (!password.isEmpty() && !password_confirmation.equals(password)) {
-            boundForm.reject("password_confirmation",
-             "Password don't match.");
-        }
+			String password_confirmation = boundForm.field("password_confirmation").valueOr("");
+			String password = boundForm.field("password").valueOr("");
+			if (!password.isEmpty() && !password_confirmation.equals(password)) {
+	            boundForm.reject("password_confirmation",
+	             "Password don't match.");
+	        }
 
-		if (boundForm.hasErrors()) {
-			flash("error", "Please correct the form below.");
-			return badRequest(news.render(boundForm));
+			if (boundForm.hasErrors()) {
+				flash("error", "Please correct the form below.");
+				return badRequest(news.render(boundForm, current_user));
+			}
+
+			User user = boundForm.get();
+			user.password = BCrypt.hashpw(user.password, BCrypt.gensalt());
+			user.save();
+			flash("success", String.format("Successfully added user."));
+			return redirect(routes.Users.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-
-		User user = boundForm.get();
-		user.password = BCrypt.hashpw(user.password, BCrypt.gensalt());
-		user.save();
-		flash("success", String.format("Successfully added user."));
-		return redirect(routes.Users.index());
 	}
 
 	public static Result update(Long id) {
 		Form<User> boundForm = userForm.bindFromRequest();
 
 		User user = User.findById(id);
+		if (user != current_user) {
+			return forbidden("You don't have permission to access on this server");
+		}
 		String password = boundForm.field("password").valueOr("");
 		String password_confirmation = boundForm.field("new_password_confirmation").valueOr("");
 		String new_password = boundForm.field("new_password").valueOr("");
@@ -63,7 +80,7 @@ public class Users extends Controller {
 
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct the form below.");
-			return badRequest(edit.render(boundForm, user));
+			return badRequest(edit.render(boundForm, user, current_user));
 		}
 		user = boundForm.get();
 		if (!new_password.isEmpty()) {
@@ -73,7 +90,11 @@ public class Users extends Controller {
 		}
 		user.update();
 		flash("success", String.format("Successfully updated user."));
-		return redirect(routes.Users.index());
+		if (Secured.isAdmin()) {
+			return redirect(routes.Users.index());
+		} else {
+			return redirect(routes.Employs.index());
+		}
 	}
 
 	public static Result edit(Long id) {
@@ -81,16 +102,23 @@ public class Users extends Controller {
 		if (user == null) {
 			return notFound(String.format("User does not exist."));
 		}
+		if (user.email != request().username() && Secured.isAdmin() == false) {
+			return forbidden("You don't have permission to access on this server");
+		}
 		Form<User> filledForm = userForm.fill(user);
-		return ok(edit.render(filledForm, user));
+		return ok(edit.render(filledForm, user, current_user));
 	}
 
 	public static Result destroy(Long id) {
-		final User user = User.findById(id);
-		if (user == null) {
-			return notFound(String.format("User does not exists."));
+		if (Secured.isAdmin()) {
+			final User user = User.findById(id);
+			if (user == null) {
+				return notFound(String.format("User does not exists."));
+			}
+			user.delete();
+			return redirect(routes.Users.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		user.delete();
-		return redirect(routes.Users.index());
 	}
 }

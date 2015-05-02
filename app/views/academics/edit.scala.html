@@ -1,10 +1,10 @@
-@(AcademicForm: Form[Academic], academic: models.Academic)
-@import models.Academic
+@(AcademicForm: Form[Academic], academic: models.Academic, user: models.User)
+
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Academic form") {
-  <h1>Academic form</h1>
+@main("Academic form", user) {
+  <h2>Academic form</h2>
   @helper.form(action = routes.Academics.update(academic.id)) {
     <fieldset>
        <legend>Academic (@AcademicForm("name").valueOr("New"))</legend>

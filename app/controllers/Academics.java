@@ -8,59 +8,85 @@ import models.*;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+@Security.Authenticated(Secured.class)
 public class Academics extends Controller {
 
 	private static final Form<Academic> academicForm = Form.form(Academic.class);
+	private static final User user = User.findByEmail(request().username());
 
 	public static Result index() {
-		List<Academic> academics = Academic.findAll();
-		return ok(index.render(academics));
+		if (Secured.isAdmin()) {
+			List<Academic> academics = Academic.findAll();
+			return ok(index.render(academics, user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
+		}
 	}
 
 	public static Result newRecord() {
-		return ok(news.render(academicForm));
+		if (Secured.isAdmin()) {
+			return ok(news.render(academicForm, user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
+		}
 	}
 
 	public static Result create() {
-		Form<Academic> boundForm = academicForm.bindFromRequest();
-		if (boundForm.hasErrors()) {
-			flash("error", "Please correct the form below.");
-			return badRequest(news.render(boundForm));
+		if (Secured.isAdmin()) {
+			Form<Academic> boundForm = academicForm.bindFromRequest();
+			if (boundForm.hasErrors()) {
+				flash("error", "Please correct the form below.");
+				return badRequest(news.render(boundForm, user));
+			}
+			Academic academic = boundForm.get();
+			academic.save();
+			flash("success", String.format("Successfully added academic."));
+			return redirect(routes.Academics.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		Academic academic = boundForm.get();
-		academic.save();
-		flash("success", String.format("Successfully added academic."));
-		return redirect(routes.Academics.index());
 	}
 
 	public static Result update(Long id) {
-		Form<Academic> boundForm = academicForm.bindFromRequest();
-		if (boundForm.hasErrors()) {
-			final Academic academic = Academic.findById(id);
-			flash("error", "Please correct the form below.");
-			return badRequest(edit.render(boundForm, academic));
+		if (Secured.isAdmin()) {
+			Form<Academic> boundForm = academicForm.bindFromRequest();
+			if (boundForm.hasErrors()) {
+				final Academic academic = Academic.findById(id);
+				flash("error", "Please correct the form below.");
+				return badRequest(edit.render(boundForm, academic, user));
+			}
+			Academic academic = boundForm.get();
+			academic.update();
+			flash("success", String.format("Successfully updated academic."));
+			return redirect(routes.Academics.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		Academic academic = boundForm.get();
-		academic.update();
-		flash("success", String.format("Successfully updated academic."));
-		return redirect(routes.Academics.index());
 	}
 
 	public static Result edit(Long id) {
-		final Academic academic = Academic.findById(id);
-		if (academic == null) {
-			return notFound(String.format("Academic does not exist."));
+		if (Secured.isAdmin()) {
+			final Academic academic = Academic.findById(id);
+			if (academic == null) {
+				return notFound(String.format("Academic does not exist."));
+			}
+			Form<Academic> filledForm = academicForm.fill(academic);
+			return ok(edit.render(filledForm, academic, user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		Form<Academic> filledForm = academicForm.fill(academic);
-		return ok(edit.render(filledForm, academic));
 	}
 
 	public static Result destroy(Long id) {
-		final Academic academic = Academic.findById(id);
-		if (academic == null) {
-			return notFound(String.format("Academic does not exists."));
+		if (Secured.isAdmin()) {
+			final Academic academic = Academic.findById(id);
+			if (academic == null) {
+				return notFound(String.format("Academic does not exists."));
+			}
+			academic.delete();
+			return redirect(routes.Academics.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		academic.delete();
-		return redirect(routes.Academics.index());
 	}
 }

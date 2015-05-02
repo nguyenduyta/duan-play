@@ -1,5 +1,5 @@
-@(degrees: List[Degree])
-@main("Degrees catalogue") {
+@(degrees: List[Degree], user: models.User)
+@main("Degrees catalogue", user) {
 <h2>All degrees</h2>
 <script>
     function del(urlToDelete) {
@@ -28,8 +28,8 @@
         <td>@degree.name</td>
         <td>@degree.description</td>
         <td>
-        	<a href=" @routes.Degrees.edit(degree.id)"><i class="icon icon-pencil"></i></a>
-        	<a onclick="del('@routes.Degrees.destroy(degree.id)')"><i class="icon icon-trash"></i></a>
+            <a href=" @routes.Degrees.edit(degree.id)"><i class="glyphicon glyphicon-pencil"></i></a>
+            <a onclick="del('@routes.Degrees.destroy(degree.id)')"><i class="glyphicon glyphicon-trash"></i></a>
         </td>
     </tr>
     }

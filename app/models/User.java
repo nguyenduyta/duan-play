@@ -5,6 +5,7 @@ import javax.persistence.*;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 public class User extends Model
@@ -24,7 +25,6 @@ public class User extends Model
     @Constraints.MinLength(6)
     public String password;
 
-    @Constraints.Required
     public boolean admin = false;
 
     public static Finder<Long,User> find = new 
@@ -51,7 +51,13 @@ public class User extends Model
         return find.where().eq("email", email).findUnique();
     }
 
-    public static User authenticate(String email, String password) {
-    return find.where().eq("email", email).eq("password", password).findUnique();
-  }
+    public static boolean authenticate(String email, String password) {
+        User user = User.findByEmail(email);
+        if (user == null) {
+            return false;
+        } else if (!BCrypt.checkpw(password, user.password)) {
+            return false;
+        }
+        return true;
+    }
 }

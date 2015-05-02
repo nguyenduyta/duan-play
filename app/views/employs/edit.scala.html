@@ -1,8 +1,8 @@
-@(EmployForm: Form[Employ], employ: models.Employ)
+@(EmployForm: Form[Employ], employ: models.Employ, user: models.User)
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Employ form") {
+@main("Employ form", user) {
   <h1>Employ form</h1>
   @helper.form(action = routes.Employs.update(employ.id)) {
     <fieldset>

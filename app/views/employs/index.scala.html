@@ -1,5 +1,5 @@
-@(employs: List[Employ])
-@main("Employs catalogue") {
+@(employs: List[Employ], user: models.User)
+@main("Employs catalogue", user) {
 <h2>All employs</h2>
 <script>
     function del(urlToDelete) {
@@ -52,12 +52,20 @@
         <td>@employ.dept.name</td>
         <td>@employ.contract.name</td>
         <td>
-        	<a href=" @routes.Employs.edit(employ.id)"><i class="icon icon-pencil"></i></a>
-        	<a onclick="del('@routes.Employs.destroy(employ.id)')"><i class="icon icon-trash"></i></a>
+            @if(user.admin == true) {
+            	<a href=" @routes.Employs.edit(employ.id)"><i class="glyphicon glyphicon-pencil"></i></a>
+            	<a onclick="del('@routes.Employs.destroy(employ.id)')"><i class="glyphicon glyphicon-trash"></i></a>
+            }
+        </td>
+    </tr>
+    }
+    @if(user.admin == true) {
+    <tr>
+        <td colspan="13">
+            <a href="@routes.Employs.newRecord()" class="btn btn-primary">New employ</a>
         </td>
     </tr>
     }
     </tbody>
 </table>
-<a href="@routes.Employs.newRecord()" class="btn btn-primary">New employ</a>
 }

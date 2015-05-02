@@ -1,8 +1,8 @@
-@(DegreeForm: Form[Degree])
+@(DegreeForm: Form[Degree], user: models.User)
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Degree form") {
+@main("Degree form", user) {
   <h1>Degree form</h1>
   @helper.form(action = routes.Degrees.create()) {
     <fieldset>
