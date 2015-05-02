@@ -1,8 +1,8 @@
-@(AcademicForm: Form[Academic])
+@(AcademicForm: Form[Academic], user: models.User)
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Academic form") {
+@main("Academic form", user) {
   <h1>Academic form</h1>
   @helper.form(action = routes.Academics.create()) {
     <fieldset>

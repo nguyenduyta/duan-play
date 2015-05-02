@@ -8,59 +8,85 @@ import models.*;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+@Security.Authenticated(Secured.class)
 public class Depts extends Controller {
 
 	private static final Form<Dept> deptForm = Form.form(Dept.class);
+	private static final User user = User.findByEmail(request().username());
 
 	public static Result index() {
-		List<Dept> depts = Dept.findAll();
-		return ok(index.render(depts));
+		if (Secured.isAdmin()) {
+			List<Dept> depts = Dept.findAll();
+			return ok(index.render(depts, user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
+		}
 	}
 
 	public static Result newRecord() {
-		return ok(news.render(deptForm));
+		if (Secured.isAdmin()) {
+			return ok(news.render(deptForm, user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
+		}
 	}
 
 	public static Result create() {
-		Form<Dept> boundForm = deptForm.bindFromRequest();
-		if (boundForm.hasErrors()) {
-			flash("error", "Please correct the form below.");
-			return badRequest(news.render(boundForm));
+		if (Secured.isAdmin()) {
+			Form<Dept> boundForm = deptForm.bindFromRequest();
+			if (boundForm.hasErrors()) {
+				flash("error", "Please correct the form below.");
+				return badRequest(news.render(boundForm, user));
+			}
+			Dept dept = boundForm.get();
+			dept.save();
+			flash("success", String.format("Successfully added dept."));
+			return redirect(routes.Depts.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		Dept dept = boundForm.get();
-		dept.save();
-		flash("success", String.format("Successfully added dept."));
-		return redirect(routes.Depts.index());
 	}
 
 	public static Result update(Long id) {
-		Form<Dept> boundForm = deptForm.bindFromRequest();
-		if (boundForm.hasErrors()) {
-			final Dept dept = Dept.findById(id);
-			flash("error", "Please correct the form below.");
-			return badRequest(edit.render(boundForm, dept));
+		if (Secured.isAdmin()) {
+			Form<Dept> boundForm = deptForm.bindFromRequest();
+			if (boundForm.hasErrors()) {
+				final Dept dept = Dept.findById(id);
+				flash("error", "Please correct the form below.");
+				return badRequest(edit.render(boundForm, dept, user));
+			}
+			Dept dept = boundForm.get();
+			dept.update();
+			flash("success", String.format("Successfully updated dept."));
+			return redirect(routes.Depts.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		Dept dept = boundForm.get();
-		dept.update();
-		flash("success", String.format("Successfully updated dept."));
-		return redirect(routes.Depts.index());
 	}
 
 	public static Result edit(Long id) {
-		final Dept dept = Dept.findById(id);
-		if (dept == null) {
-			return notFound(String.format("Dept does not exist."));
+		if (Secured.isAdmin()) {
+			final Dept dept = Dept.findById(id);
+			if (dept == null) {
+				return notFound(String.format("Dept does not exist."));
+			}
+			Form<Dept> filledForm = deptForm.fill(dept);
+			return ok(edit.render(filledForm, dept, user));
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		Form<Dept> filledForm = deptForm.fill(dept);
-		return ok(edit.render(filledForm, dept));
 	}
 
 	public static Result destroy(Long id) {
-		final Dept dept = Dept.findById(id);
-		if (dept == null) {
-			return notFound(String.format("Dept does not exists."));
+		if (Secured.isAdmin()) {
+			final Dept dept = Dept.findById(id);
+			if (dept == null) {
+				return notFound(String.format("Dept does not exists."));
+			}
+			dept.delete();
+			return redirect(routes.Depts.index());
+		} else {
+			return forbidden("You don't have permission to access on this server");
 		}
-		dept.delete();
-		return redirect(routes.Depts.index());
 	}
 }

@@ -1,8 +1,8 @@
-@(ContractForm: Form[Contract], contract: models.Contract)
+@(ContractForm: Form[Contract], contract: models.Contract, user: models.User)
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Contract form") {
+@main("Contract form", user) {
   <h1>Contract form</h1>
   @helper.form(action = routes.Contracts.update(contract.id)) {
     <fieldset>

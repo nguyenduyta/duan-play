@@ -1,19 +1,36 @@
-@(title: String)(content: Html)
+@(title: String, current_user: models.User)(content: Html)
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>@title</title>
     <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
-    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
-    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
-    <style>
-    body {
-        margin-top: 50px;
-    }
-    </style>
+    <!-- <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'> -->
+    <link href='@routes.Assets.at("bootstrap/css/bootstrap.min.css")' rel="stylesheet" media="screen">
+    <link href='@routes.Assets.at("stylesheets/main.css")' rel="stylesheet" media="screen">
+    <script type='text/javascript' src='@routes.Assets.at("bootstrap/js/jquery-1.11.2.min.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("bootstrap/js/bootstrap.js")'></script>
 </head>
 <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <nav>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="@routes.Employs.index">Home</a></li>
+            @if(current_user.admin == true) {
+              <li><a href="@routes.Users.index">Users</a></li>
+              <li><a href="@routes.Academics.index">Academics</a></li>
+              <li><a href="@routes.Contracts.index">Contracts</a></li>
+              <li><a href="@routes.Degrees.index">Degrees</a></li>
+              <li><a href="@routes.Depts.index">Depts</a></li>
+            }
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="@routes.Users.edit(current_user.id)">@current_user.email</a></li>
+            <li><a href="@routes.Application.logout">Sign out</a></li>
+        </nav>
+      </div>
+    </header>
     @if(flash.containsKey("success")){
       <div class="alert alert-success">
         @flash.get("success")

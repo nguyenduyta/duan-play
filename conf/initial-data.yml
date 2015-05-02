@@ -1,0 +1,72 @@
+
+# Users
+
+users:
+
+	- !!models.User
+		email:      tandcntt@gmail.com
+		name:       Nguyen Duy Ta
+		password:   123456
+
+	- !!models.User
+		email:      admin@gmail.com
+		name:       admin
+		password:   123456
+
+# Academics
+
+academics:
+
+    - !!models.Academic
+        name:           Academic 1
+        description:    Academic 1
+
+    - !!models.Academic
+        name:           Academic 2
+        description:    Academic 2
+
+    - !!models.Academic
+        name:           Academic 3
+        description:    Academic 3
+
+contracts:
+
+    - !!models.Contract
+        name:           Contract 1
+        description:    Contract 1
+
+    - !!models.Contract
+        name:           Contract 2
+        description:    Contract 2
+
+    - !!models.Contract
+        name:           Contract 3
+        description:    Contract 3
+
+degrees:
+
+    - !!models.Degree
+        name:           Degree 1
+        description:    Degree 1
+
+    - !!models.Degree
+        name:           Degree 2
+        description:    Degree 2
+
+    - !!models.Degree
+        name:           Degree 3
+        description:    Degree 3
+
+depts:
+
+    - !!models.Dept
+        name:           Dept 1
+        description:    Dept 1
+
+    - !!models.Dept
+        name:           Dept 2
+        description:    Dept 2
+
+    - !!models.Dept
+        name:           Dept 3
+        description:    Dept 3

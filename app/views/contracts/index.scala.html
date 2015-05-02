@@ -1,5 +1,5 @@
-@(contracts: List[Contract])
-@main("Contracts catalogue") {
+@(contracts: List[Contract], user: models.User)
+@main("Contracts catalogue", user) {
 <h2>All contracts</h2>
 <script>
     function del(urlToDelete) {
@@ -28,8 +28,8 @@
         <td>@contract.name</td>
         <td>@contract.description</td>
         <td>
-        	<a href=" @routes.Contracts.edit(contract.id)"><i class="icon icon-pencil"></i></a>
-        	<a onclick="del('@routes.Contracts.destroy(contract.id)')"><i class="icon icon-trash"></i></a>
+        	<a href=" @routes.Contracts.edit(contract.id)"><i class="glyphicon glyphicon-pencil"></i></a>
+            <a onclick="del('@routes.Contracts.destroy(contract.id)')"><i class="glyphicon glyphicon-trash"></i></a>
         </td>
     </tr>
     }
