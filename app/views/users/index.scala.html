@@ -1,0 +1,41 @@
+@(users: List[User])
+@main("Users catalogue") {
+<h2>All users</h2>
+<script>
+    function del(urlToDelete) {
+        $.ajax({
+            url: urlToDelete,
+            type: 'DELETE',
+            success: function (results) {
+                location.reload();
+            }
+        });
+    }
+</script>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>User Id</th>
+        <th>User Name</th>
+		<th>Email</th>
+        <th>Admin</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @for(user <- users) {
+    <tr>
+        <td>@user.id</td>
+        <td>@user.name</td>
+        <td>@user.email</td>
+        <td>@user.admin</td>
+        <td>
+        	<a href=" @routes.Users.edit(user.id)"><i class="icon icon-pencil"></i></a>
+        	<a onclick="del('@routes.Users.destroy(user.id)')"><i class="icon icon-trash"></i></a>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+<a href="@routes.Users.newRecord()" class="btn btn-primary">New user</a>
+}

@@ -1,0 +1,16 @@
+@(DeptForm: Form[Dept])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Department form") {
+  <h1>Department form</h1>
+  @helper.form(action = routes.Depts.create()) {
+    <fieldset>
+       <legend>Department (@DeptForm("name").valueOr("New"))</legend>
+       @helper.inputText(DeptForm("name"), 'placeholder -> "Dept name",'_label -> "Dept name", '_showConstraints -> false, 'class -> "form-control")
+       @helper.textarea(DeptForm("description"), '_label -> "Description", '_showConstraints -> false, 'class -> "form-control")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Depts.index()">Cancel</a>
+  }
+}

@@ -37,21 +37,27 @@
         <td>@employ.name</td>
         <td>@employ.email</td>
         <td>@employ.address</td>
-        <td>@employ.gender</td>
-        <td>@employ.birthday</td>
-        <td>@employ.phone_number</td>
-        <td>@employ.degree</td>
-        <td>@employ.academic</td>
-        <td>@employ.workplace</td>
-        <td>@employ.dept</td>
-        <td>@employ.contract</td>
         <td>
-        	<a href=" @routes.Employs.details(employ.id)"><i class="icon icon-pencil"></i></a>
-        	<a onclick="del('@routes.Employs.delete(employ.id)')"><i class="icon icon-trash"></i></a>
+        @if(employ.gender) {
+            Male
+        } else {
+            Female
+        }
+        </td>
+        <td>@employ.birthday.format("dd/MM/yyyy")</td>
+        <td>@employ.phone_number</td>
+        <td>@employ.degree.name</td>
+        <td>@employ.academic.name</td>
+        <td>@employ.workplace</td>
+        <td>@employ.dept.name</td>
+        <td>@employ.contract.name</td>
+        <td>
+        	<a href=" @routes.Employs.edit(employ.id)"><i class="icon icon-pencil"></i></a>
+        	<a onclick="del('@routes.Employs.destroy(employ.id)')"><i class="icon icon-trash"></i></a>
         </td>
     </tr>
     }
     </tbody>
 </table>
-<a href="@routes.Employs.newEmploy()" class="btn btn-primary">New employ</a>
+<a href="@routes.Employs.newRecord()" class="btn btn-primary">New employ</a>
 }

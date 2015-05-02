@@ -1,0 +1,17 @@
+@(DeptForm: Form[Dept], dept: models.Dept)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Department form") {
+  <h1>Department form</h1>
+  @helper.form(action = routes.Depts.update(dept.id)) {
+    <fieldset>
+       <legend>Department (@DeptForm("name").valueOr("New"))</legend>
+       <input type="hidden" value="@dept.id" name="id" >
+       @helper.inputText(DeptForm("name"), 'placeholder -> "Dept name",'_label -> "Dept name", '_showConstraints -> false, 'class -> "form-control")
+       @helper.textarea(DeptForm("description"), '_label -> "Description", '_showConstraints -> false, 'class -> "form-control")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Depts.index()">Cancel</a>
+  }
+}

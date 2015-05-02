@@ -1,0 +1,23 @@
+@(UserForm: Form[User])
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("User form") {
+  <h1>User form</h1>
+  @helper.form(action = routes.Users.create()) {
+    <fieldset>
+       <legend>User (@UserForm("name").valueOr("New"))</legend>
+       @helper.inputText(UserForm("name"), 'placeholder -> "User name",'_label -> "User name", '_showConstraints -> false, 'class -> "form-control")
+
+       @helper.inputText(UserForm("email"), 'placeholder -> "Email",'_label -> "Email", 'type -> "email", '_showConstraints -> false, 'class -> "form-control")
+
+       @helper.inputPassword(UserForm("password"),'_label -> "Password", '_showConstraints -> false, 'class -> "form-control")
+
+       @helper.inputPassword(UserForm("password_confirmation"),'_label -> "Password Confirmation", '_showConstraints -> false, 'class -> "form-control")
+
+       @helper.select(UserForm("admin"), options = options("true"->"True", "false"->"False"),'_label -> "Admin", '_showConstraints -> false, 'class -> "form-control")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Users.index()">Cancel</a>
+  }
+}

@@ -1,0 +1,18 @@
+@(AcademicForm: Form[Academic], academic: models.Academic)
+@import models.Academic
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Academic form") {
+  <h1>Academic form</h1>
+  @helper.form(action = routes.Academics.update(academic.id)) {
+    <fieldset>
+       <legend>Academic (@AcademicForm("name").valueOr("New"))</legend>
+       <input type="hidden" value="@academic.id" name="id" >
+       @helper.inputText(AcademicForm("name"), 'placeholder -> "Academic name",'_label -> "Academic name", '_showConstraints -> false, 'class -> "form-control")
+       @helper.textarea(AcademicForm("description"), '_label -> "Description", '_showConstraints -> false, 'class -> "form-control")
+    </fieldset>
+    <input type="submit" class="btn btn-primary" value="Save">
+    <a class="btn" href="@routes.Academics.index()">Cancel</a>
+  }
+}
