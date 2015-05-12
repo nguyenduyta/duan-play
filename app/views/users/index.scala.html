@@ -30,7 +30,6 @@
         <td>@user.email</td>
         <td>@user.admin</td>
         <td>
-            <a href=" @routes.Users.edit(user.id)"><i class="glyphicon glyphicon-pencil"></i></a>
             <a onclick="del('@routes.Users.destroy(user.id)')"><i class="glyphicon glyphicon-trash"></i></a>
         </td>
     </tr>

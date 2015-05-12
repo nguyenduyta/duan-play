@@ -61,7 +61,7 @@ public class Users extends Controller {
 		Form<User> boundForm = userForm.bindFromRequest();
 
 		User user = User.findById(id);
-		if (user != User.findByEmail(request().username())) {
+		if (user != User.findByEmail(request().username()) && !Secured.isAdmin()) {
 			return forbidden("You don't have permission to access on this server");
 		}
 		String password = boundForm.field("password").valueOr("");
@@ -98,14 +98,15 @@ public class Users extends Controller {
 
 	public static Result edit(Long id) {
 		final User user = User.findById(id);
+		User current_user = User.findByEmail(request().username());
 		if (user == null) {
 			return notFound(String.format("User does not exist."));
 		}
-		if (user.email != request().username() && Secured.isAdmin() == false) {
+		if (user == current_user) {
 			return forbidden("You don't have permission to access on this server");
 		}
 		Form<User> filledForm = userForm.fill(user);
-		return ok(edit.render(filledForm, user, User.findByEmail(request().username())));
+		return ok(edit.render(filledForm, user, current_user));
 	}
 
 	public static Result destroy(Long id) {
