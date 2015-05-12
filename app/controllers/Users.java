@@ -13,12 +13,11 @@ import org.mindrot.jbcrypt.BCrypt;
 public class Users extends Controller {
 
 	private static final Form<User> userForm = Form.form(User.class);
-	private static final User current_user = User.findByEmail(request().username());
 
 	public static Result index() {
 		if (Secured.isAdmin()) {
 			List<User> users = User.findAll();
-			return ok(index.render(users, current_user));
+			return ok(index.render(users, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -26,7 +25,7 @@ public class Users extends Controller {
 
 	public static Result newRecord() {
 		if (Secured.isAdmin()) {
-			return ok(news.render(userForm, current_user));
+			return ok(news.render(userForm, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -45,7 +44,7 @@ public class Users extends Controller {
 
 			if (boundForm.hasErrors()) {
 				flash("error", "Please correct the form below.");
-				return badRequest(news.render(boundForm, current_user));
+				return badRequest(news.render(boundForm, User.findByEmail(request().username())));
 			}
 
 			User user = boundForm.get();
@@ -62,7 +61,7 @@ public class Users extends Controller {
 		Form<User> boundForm = userForm.bindFromRequest();
 
 		User user = User.findById(id);
-		if (user != current_user) {
+		if (user != User.findByEmail(request().username())) {
 			return forbidden("You don't have permission to access on this server");
 		}
 		String password = boundForm.field("password").valueOr("");
@@ -80,7 +79,7 @@ public class Users extends Controller {
 
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct the form below.");
-			return badRequest(edit.render(boundForm, user, current_user));
+			return badRequest(edit.render(boundForm, user, User.findByEmail(request().username())));
 		}
 		user = boundForm.get();
 		if (!new_password.isEmpty()) {
@@ -106,7 +105,7 @@ public class Users extends Controller {
 			return forbidden("You don't have permission to access on this server");
 		}
 		Form<User> filledForm = userForm.fill(user);
-		return ok(edit.render(filledForm, user, current_user));
+		return ok(edit.render(filledForm, user, User.findByEmail(request().username())));
 	}
 
 	public static Result destroy(Long id) {

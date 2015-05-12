@@ -12,12 +12,11 @@ import javax.persistence.*;
 public class Contracts extends Controller {
 
 	private static final Form<Contract> contractForm = Form.form(Contract.class);
-	private static final User user = User.findByEmail(request().username());
 
 	public static Result index() {
 		if (Secured.isAdmin()) {
 			List<Contract> contracts = Contract.findAll();
-			return ok(index.render(contracts, user));
+			return ok(index.render(contracts, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}	
@@ -25,7 +24,7 @@ public class Contracts extends Controller {
 
 	public static Result newRecord() {
 		if (Secured.isAdmin()) {
-			return ok(news.render(contractForm, user));
+			return ok(news.render(contractForm, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -36,7 +35,7 @@ public class Contracts extends Controller {
 			Form<Contract> boundForm = contractForm.bindFromRequest();
 			if (boundForm.hasErrors()) {
 				flash("error", "Please correct the form below.");
-				return badRequest(news.render(boundForm, user));
+				return badRequest(news.render(boundForm, User.findByEmail(request().username())));
 			}
 			Contract contract = boundForm.get();
 			contract.save();
@@ -53,7 +52,7 @@ public class Contracts extends Controller {
 			if (boundForm.hasErrors()) {
 				final Contract contract = Contract.findById(id);
 				flash("error", "Please correct the form below.");
-				return badRequest(edit.render(boundForm, contract, user));
+				return badRequest(edit.render(boundForm, contract, User.findByEmail(request().username())));
 			}
 			Contract contract = boundForm.get();
 			contract.update();
@@ -71,7 +70,7 @@ public class Contracts extends Controller {
 				return notFound(String.format("Contract does not exist."));
 			}
 			Form<Contract> filledForm = contractForm.fill(contract);
-			return ok(edit.render(filledForm, contract, user));
+			return ok(edit.render(filledForm, contract, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}

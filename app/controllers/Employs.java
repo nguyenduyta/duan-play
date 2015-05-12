@@ -12,16 +12,15 @@ import javax.persistence.*;
 public class Employs extends Controller {
 
 	private static final Form<Employ> employForm = Form.form(Employ.class);
-	private static final User user = User.findByEmail(request().username());
 
 	public static Result index() {
 		List<Employ> employs = Employ.findAll();
-		return ok(index.render(employs, user));
+		return ok(index.render(employs, User.findByEmail(request().username())));
 	}
 
 	public static Result newRecord() {
 		if (Secured.isAdmin()) {
-			return ok(news.render(employForm, user));
+			return ok(news.render(employForm, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -32,7 +31,7 @@ public class Employs extends Controller {
 			Form<Employ> boundForm = employForm.bindFromRequest();
 			if (boundForm.hasErrors()) {
 				flash("error", "Please correct the form below.");
-				return badRequest(news.render(boundForm, user));
+				return badRequest(news.render(boundForm, User.findByEmail(request().username())));
 			}
 			Employ employ = boundForm.get();
 			employ.save();
@@ -49,7 +48,7 @@ public class Employs extends Controller {
 			if (boundForm.hasErrors()) {
 				final Employ employ = Employ.findById(id);
 				flash("error", "Please correct the form below.");
-				return ok(edit.render(boundForm, employ, user));
+				return ok(edit.render(boundForm, employ, User.findByEmail(request().username())));
 			}
 			Employ employ = boundForm.get();
 			employ.update();
@@ -67,7 +66,7 @@ public class Employs extends Controller {
 				return notFound(String.format("Employ does not exist."));
 			}
 			Form<Employ> filledForm = employForm.fill(employ);
-			return ok(edit.render(filledForm, employ, user));
+			return ok(edit.render(filledForm, employ, User.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
