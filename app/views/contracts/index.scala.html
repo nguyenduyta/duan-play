@@ -1,6 +1,6 @@
-@(contracts: List[Contract], user: models.User)
+@(contracts: List[Contract], user: models.Users)
 @main("Contracts catalogue", user) {
-<h2>All contracts</h2>
+<h2><span class="glyphicon glyphicon-bookmark"></span> Contracts</h2>
 <script>
     function del(urlToDelete) {
         $.ajax({

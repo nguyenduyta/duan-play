@@ -1,35 +1,38 @@
-@(EmployForm: Form[Employ], user: models.User)
+@(EmployForm: Form[Employ], user: models.Users)
 @import helper._
 @import helper.twitterBootstrap._
 
 @main("Employ form", user) {
-  <h1>Employ form</h1>
-  @helper.form(action = routes.Employs.create()) {
-    <fieldset>
-        <legend>Employ (@EmployForm("name").valueOr("New"))</legend>
-        @helper.inputText(EmployForm("name"), 'placeholder -> "Your name",'_label -> "Name", '_showConstraints -> false, 'class -> "form-control")
+  <div class="container row">
+    <div class="col-md-6 col-md-offset-3">
+          @helper.form(action = routes.Employs.create()) {
+            <fieldset>
+                <legend>Employ (@EmployForm("name").valueOr("New"))</legend>
+                @helper.inputText(EmployForm("name"), 'placeholder -> "Your name",'_label -> "Name", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.textarea(EmployForm("address"), '_label -> "Address", '_showConstraints -> false, 'class -> "form-control")
+                @helper.textarea(EmployForm("address"), '_label -> "Address", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.inputText(EmployForm("email"), '_label -> "Email", 'type -> "email", '_showConstraints -> false, 'class -> "form-control")
+                @helper.inputText(EmployForm("email"), '_label -> "Email", 'type -> "email", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.select(EmployForm("gender"), options = options("true"->"Male", "false"->"Female"),'_label -> "Gender", '_showConstraints -> false, 'class -> "form-control")
+                @helper.select(EmployForm("gender"), options = options("true"->"Male", "false"->"Female"),'_label -> "Gender", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.inputDate(EmployForm("birthday"), 'placeholder -> "dd/mm/yyyy", '_label -> "Birthday", '_showConstraints -> false, 'class -> "form-control")
+                @helper.inputText(EmployForm("birthday"), '_label -> "Birthday", '_showConstraints -> false, 'class -> "form-control datepicker")
 
-        @helper.inputText(EmployForm("phone_number"), '_label -> "Phone number", '_showConstraints -> false, 'class -> "form-control")
+                @helper.inputText(EmployForm("phone_number"), '_label -> "Phone number", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.textarea(EmployForm("workplace"), '_label -> "Workplace", '_showConstraints -> false, 'class -> "form-control")
+                @helper.textarea(EmployForm("workplace"), '_label -> "Workplace", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.select(EmployForm("degree.id"), options(Degree.selectCollection()),'_label -> "Degree", '_showConstraints -> false, 'class -> "form-control")
+                @helper.select(EmployForm("degree.id"), options(Degree.selectCollection()),'_label -> "Degree", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.select(EmployForm("academic.id"), options(Academic.selectCollection()),'_label -> "Academic", '_showConstraints -> false, 'class -> "form-control")
-       
-        @helper.select(EmployForm("dept.id"), options(Dept.selectCollection()),'_label -> "Department", '_showConstraints -> false, 'class -> "form-control")
+                @helper.select(EmployForm("academic.id"), options(Academic.selectCollection()),'_label -> "Academic", '_showConstraints -> false, 'class -> "form-control")
+               
+                @helper.select(EmployForm("dept.id"), options(Dept.selectCollection()),'_label -> "Department", '_showConstraints -> false, 'class -> "form-control")
 
-        @helper.select(EmployForm("contract.id"), options(Contract.selectCollection()),'_label -> "Contract", '_showConstraints -> false, 'class -> "form-control")
-    </fieldset>
-    <input type="submit" class="btn btn-primary" value="Save">
-    <a class="btn" href="@routes.Employs.index()">Cancel</a>
-  }
+                @helper.select(EmployForm("contract.id"), options(Contract.selectCollection()),'_label -> "Contract", '_showConstraints -> false, 'class -> "form-control")
+            </fieldset>
+            <input type="submit" class="btn btn-primary" value="Save">
+            <a class="btn" href="@routes.Employs.index()">Cancel</a>
+          }
+        </div>
+    </div>
 }

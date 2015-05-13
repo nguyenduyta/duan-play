@@ -1,0 +1,134 @@
+@(currentPage: com.avaje.ebean.Page[Employ], currentSortBy: String, currentOrder: String, currentFilter: String, user: models.Users)
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage:Int, newSortBy:String) = @{
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    // Generate the link
+    routes.Employs.list(newPage, sortBy, order, currentFilter)
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(key:String, title:String) = {
+    <th class="glyphicon @key.replace(".","_") header">
+        <a class="glyphicon @if(currentSortBy == key) @{if(currentOrder == "asc") "glyphicon-sort-by-order" else "glyphicon-sort-by-order-alt"}" href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main("Employs catalogue", user) {
+    <h1><span class="glyphicon glyphicon-user"></span> Employs</h1>
+    <h5>(@Messages("employs.list.title", currentPage.getTotalRowCount))</h5>
+    <div id="actions" class="search-block row">
+        <form action="@link(0, "name")" method="GET">
+            <div class="panel panel-default form-inline spinnable">
+                <div class="panel-heading">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <input type="search" name="f" id="searchbox" placeholder="Keyword" value="@currentFilter" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" id="searchsubmit" value="Search" class="btn btn-primary">
+                        </div>
+                    </div>
+                    <br style="clear: both">
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                @header("id", "ID")
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Gender</th>
+                <th>Birthday</th>
+                <th>Phone Number</th>
+                <th>Degree</th>
+                <th>Academic</th>
+                <th>Workplace</th>
+                <th>Department</th>
+                <th>Contract</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(currentPage.getTotalRowCount == 0) {
+                <tr>
+                    <td colspan="13">Nothing to display</td>
+                </tr>
+            } else {
+                @for(employ <- currentPage.getList) {
+                    <tr>
+                        <td>@employ.id</td>
+                        <td>@employ.name</td>
+                        <td>@employ.email</td>
+                        <td>@employ.address</td>
+                        <td>
+                        @if(employ.gender) {
+                            Male
+                        } else {
+                            Female
+                        }
+                        </td>
+                        <td>@employ.birthday.format("dd-MM-yyyy")</td>
+                        <td>@employ.phone_number</td>
+                        <td>@employ.degree.name</td>
+                        <td>@employ.academic.name</td>
+                        <td>@employ.workplace</td>
+                        <td>@employ.dept.name</td>
+                        <td>@employ.contract.name</td>
+                        <td>
+                            @if(user.admin == true) {
+                                <a href=" @routes.Employs.edit(employ.id)"><i class="glyphicon glyphicon-pencil"></i></a>
+                                <a onclick="del('@routes.Employs.destroy(employ.id)')"><i class="glyphicon glyphicon-trash"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            @if(user.admin == true) {
+            <tr>
+                <td colspan="13">
+                    <a href="@routes.Employs.newRecord()" class="btn btn-primary">New employ</a>
+                    <a href="@routes.Employs.export()" class="btn btn-primary">Export</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pager">
+            @if(currentPage.hasPrev) {
+                <li>
+                    <a href="@link(currentPage.getPageIndex - 1, null)"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                </li>
+            }
+            @if(currentPage.hasNext) {
+                <li>
+                    <a href="@link(currentPage.getPageIndex + 1, null)"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+            

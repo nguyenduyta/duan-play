@@ -1,6 +1,6 @@
-@(users: List[User], current_user: models.User)
+@(users: List[Users], current_user: models.Users)
 @main("Users catalogue", current_user) {
-<h2>All users</h2>
+<h2><span class="glyphicon glyphicon-bookmark"></span> Users</h2>
 <script>
     function del(urlToDelete) {
         $.ajax({
@@ -30,11 +30,13 @@
         <td>@user.email</td>
         <td>@user.admin</td>
         <td>
-            <a onclick="del('@routes.Users.destroy(user.id)')"><i class="glyphicon glyphicon-trash"></i></a>
+            @if(!user.equals(current_user)) {
+                <a onclick="del('@routes.User.destroy(user.id)')"><i class="glyphicon glyphicon-trash"></i></a>
+            }
         </td>
     </tr>
     }
     </tbody>
 </table>
-<a href="@routes.Users.newRecord()" class="btn btn-primary">New user</a>
+<a href="@routes.User.newRecord()" class="btn btn-primary">New user</a>
 }

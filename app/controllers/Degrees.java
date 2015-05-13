@@ -16,7 +16,7 @@ public class Degrees extends Controller {
 	public static Result index() {
 		if (Secured.isAdmin()) {
 			List<Degree> degrees = Degree.findAll();
-			return ok(index.render(degrees, User.findByEmail(request().username())));
+			return ok(index.render(degrees, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -24,7 +24,7 @@ public class Degrees extends Controller {
 
 	public static Result newRecord() {
 		if (Secured.isAdmin()) {
-			return ok(news.render(degreesForm, User.findByEmail(request().username())));
+			return ok(news.render(degreesForm, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -35,7 +35,7 @@ public class Degrees extends Controller {
 			Form<Degree> boundForm = degreesForm.bindFromRequest();
 			if (boundForm.hasErrors()) {
 				flash("error", "Please correct the form below.");
-				return badRequest(news.render(boundForm, User.findByEmail(request().username())));
+				return badRequest(news.render(boundForm, Users.findByEmail(request().username())));
 			}
 			Degree degree = boundForm.get();
 			degree.save();
@@ -52,7 +52,7 @@ public class Degrees extends Controller {
 			if (boundForm.hasErrors()) {
 				final Degree degree = Degree.findById(id);
 				flash("error", "Please correct the form below.");
-				return badRequest(edit.render(boundForm, degree, User.findByEmail(request().username())));
+				return badRequest(edit.render(boundForm, degree, Users.findByEmail(request().username())));
 			}
 			Degree degree = boundForm.get();
 			degree.update();
@@ -70,7 +70,7 @@ public class Degrees extends Controller {
 				return notFound(String.format("Degree does not exist."));
 			}
 			Form<Degree> filledForm = degreesForm.fill(degree);
-			return ok(edit.render(filledForm, degree, User.findByEmail(request().username())));
+			return ok(edit.render(filledForm, degree, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}

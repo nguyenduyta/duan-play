@@ -16,7 +16,7 @@ public class Depts extends Controller {
 	public static Result index() {
 		if (Secured.isAdmin()) {
 			List<Dept> depts = Dept.findAll();
-			return ok(index.render(depts, User.findByEmail(request().username())));
+			return ok(index.render(depts, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -24,7 +24,7 @@ public class Depts extends Controller {
 
 	public static Result newRecord() {
 		if (Secured.isAdmin()) {
-			return ok(news.render(deptForm, User.findByEmail(request().username())));
+			return ok(news.render(deptForm, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -35,7 +35,7 @@ public class Depts extends Controller {
 			Form<Dept> boundForm = deptForm.bindFromRequest();
 			if (boundForm.hasErrors()) {
 				flash("error", "Please correct the form below.");
-				return badRequest(news.render(boundForm, User.findByEmail(request().username())));
+				return badRequest(news.render(boundForm, Users.findByEmail(request().username())));
 			}
 			Dept dept = boundForm.get();
 			dept.save();
@@ -52,7 +52,7 @@ public class Depts extends Controller {
 			if (boundForm.hasErrors()) {
 				final Dept dept = Dept.findById(id);
 				flash("error", "Please correct the form below.");
-				return badRequest(edit.render(boundForm, dept, User.findByEmail(request().username())));
+				return badRequest(edit.render(boundForm, dept, Users.findByEmail(request().username())));
 			}
 			Dept dept = boundForm.get();
 			dept.update();
@@ -70,7 +70,7 @@ public class Depts extends Controller {
 				return notFound(String.format("Dept does not exist."));
 			}
 			Form<Dept> filledForm = deptForm.fill(dept);
-			return ok(edit.render(filledForm, dept, User.findByEmail(request().username())));
+			return ok(edit.render(filledForm, dept, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}

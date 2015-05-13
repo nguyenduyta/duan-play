@@ -9,7 +9,9 @@ libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "2.3.1",
   "mysql" % "mysql-connector-java" % "5.1.18",
   "org.mindrot" % "jbcrypt" % "0.3m",
-   "org.postgresql" % "postgresql" % "9.3-1100-jdbc41",
+  "org.postgresql" % "postgresql" % "9.3-1100-jdbc41",
+  "org.apache.poi" % "poi" % "3.8",
+  "org.apache.poi" % "poi-ooxml" % "3.9",
   javaEbean,
   javaCore,
   javaJdbc

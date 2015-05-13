@@ -16,7 +16,7 @@ public class Academics extends Controller {
 	public static Result index() {
 		if (Secured.isAdmin()) {
 			List<Academic> academics = Academic.findAll();
-			return ok(index.render(academics, User.findByEmail(request().username())));
+			return ok(index.render(academics, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -24,7 +24,7 @@ public class Academics extends Controller {
 
 	public static Result newRecord() {
 		if (Secured.isAdmin()) {
-			return ok(news.render(academicForm, User.findByEmail(request().username())));
+			return ok(news.render(academicForm, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}
@@ -35,7 +35,7 @@ public class Academics extends Controller {
 			Form<Academic> boundForm = academicForm.bindFromRequest();
 			if (boundForm.hasErrors()) {
 				flash("error", "Please correct the form below.");
-				return badRequest(news.render(boundForm, User.findByEmail(request().username())));
+				return badRequest(news.render(boundForm, Users.findByEmail(request().username())));
 			}
 			Academic academic = boundForm.get();
 			academic.save();
@@ -52,7 +52,7 @@ public class Academics extends Controller {
 			if (boundForm.hasErrors()) {
 				final Academic academic = Academic.findById(id);
 				flash("error", "Please correct the form below.");
-				return badRequest(edit.render(boundForm, academic, User.findByEmail(request().username())));
+				return badRequest(edit.render(boundForm, academic, Users.findByEmail(request().username())));
 			}
 			Academic academic = boundForm.get();
 			academic.update();
@@ -70,7 +70,7 @@ public class Academics extends Controller {
 				return notFound(String.format("Academic does not exist."));
 			}
 			Form<Academic> filledForm = academicForm.fill(academic);
-			return ok(edit.render(filledForm, academic, User.findByEmail(request().username())));
+			return ok(edit.render(filledForm, academic, Users.findByEmail(request().username())));
 		} else {
 			return forbidden("You don't have permission to access on this server");
 		}

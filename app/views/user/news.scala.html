@@ -1,10 +1,10 @@
-@(UserForm: Form[User], current_user: models.User)
+@(UserForm: Form[Users], current_user: models.Users)
 @import helper._
 @import helper.twitterBootstrap._
 
 @main("User form", current_user) {
   <h1>User form</h1>
-  @helper.form(action = routes.Users.create()) {
+  @helper.form(action = routes.User.create()) {
     <fieldset>
        <legend>User (@UserForm("name").valueOr("New"))</legend>
        @helper.inputText(UserForm("name"), 'placeholder -> "User name",'_label -> "User name", '_showConstraints -> false, 'class -> "form-control")
@@ -18,6 +18,6 @@
        @helper.select(UserForm("admin"), options = options("true"->"True", "false"->"False"),'_label -> "Admin", '_showConstraints -> false, 'class -> "form-control")
     </fieldset>
     <input type="submit" class="btn btn-primary" value="Save">
-    <a class="btn" href="@routes.Users.index()">Cancel</a>
+    <a class="btn" href="@routes.User.index()">Cancel</a>
   }
 }
