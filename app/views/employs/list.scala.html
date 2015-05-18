@@ -39,6 +39,12 @@
         <form action="@link(0, "name")" method="GET">
             <div class="panel panel-default form-inline spinnable">
                 <div class="panel-heading">
+                    <div class="pull-left">
+                        @if(user.admin == true) {
+                        <a href="@routes.Employs.newRecord()" class="btn btn-primary">New employ</a>
+                        <a href="@routes.Employs.export()" class="btn btn-primary">Export</a>
+                        }
+                    </div>
                     <div class="pull-right">
                         <div class="form-group">
                             <input type="search" name="f" id="searchbox" placeholder="Keyword" value="@currentFilter" class="form-control">
@@ -104,14 +110,6 @@
                         </td>
                     </tr>
                 }
-            }
-            @if(user.admin == true) {
-            <tr>
-                <td colspan="13">
-                    <a href="@routes.Employs.newRecord()" class="btn btn-primary">New employ</a>
-                    <a href="@routes.Employs.export()" class="btn btn-primary">Export</a>
-                </td>
-            </tr>
             }
         </tbody>
     </table>
