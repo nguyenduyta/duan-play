@@ -8,7 +8,7 @@ import play.data.validation.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
-public class User extends Model
+public class Users extends Model
 {
     @Id
     public Long id;
@@ -27,37 +27,36 @@ public class User extends Model
 
     public boolean admin = false;
 
-    public static Finder<Long,User> find = new 
-        Finder<Long,User>(Long.class, User.class);
+    public static Finder<Long,Users> find = new 
+        Finder<Long,Users>(Long.class, Users.class);
 
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<ValidationError>();
-        User user = User.findByEmail(email);
+        Users user = Users.findByEmail(email);
         if (user != null && id == null) {
             errors.add(new ValidationError("email", "This e-mail is already registered."));
         }
         return errors.isEmpty() ? null : errors;
     }
 
-    public static List<User> findAll() {
+    public static List<Users> findAll() {
         return find.all();
     }
     
-    public static User findById(Long id) {
+    public static Users findById(Long id) {
         return find.where().eq("id", id).findUnique();
     }
 
-    public static User findByEmail(String email) {
+    public static Users findByEmail(String email) {
         return find.where().eq("email", email).findUnique();
     }
 
     public static boolean authenticate(String email, String password) {
-        User user = User.findByEmail(email);
-        if (user == null) {
-            return false;
-        } else if (!BCrypt.checkpw(password, user.password)) {
-            return false;
+        Users user = Users.findByEmail(email);
+        if (user != null && BCrypt.checkpw(password, user.password)) {
+          return true;
+        } else {
+          return false;
         }
-        return true;
     }
 }

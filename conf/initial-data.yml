@@ -3,15 +3,19 @@
 
 users:
 
-	- !!models.User
-		email:      tandcntt@gmail.com
-		name:       Nguyen Duy Ta
-		password:   123456
+    - !!models.Users
+        id:         1
+        email:      tandcntt@gmail.com
+        name:       Nguyen Duy Ta
+        admin:      false
+        password:   $2a$10$Yz8//WX0GH/fK2zGRCS03uMiJXwz0iAXhNdnJj6luh4SgZFPowWkG
 
-	- !!models.User
-		email:      admin@gmail.com
-		name:       admin
-		password:   123456
+    - !!models.Users
+        id:         2
+        email:      admin@gmail.com
+        name:       admin
+        admin:      true
+        password:   $2a$10$Yz8//WX0GH/fK2zGRCS03uMiJXwz0iAXhNdnJj6luh4SgZFPowWkG
 
 # Academics
 

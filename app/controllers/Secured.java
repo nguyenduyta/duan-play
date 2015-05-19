@@ -19,7 +19,7 @@ public class Secured extends Security.Authenticator {
     }
 
     public static boolean isAdmin() {
-    	User user = User.findByEmail(Context.current().request().username());
+    	Users user = Users.findByEmail(Context.current().request().username());
     	return user.admin;
     }
 }

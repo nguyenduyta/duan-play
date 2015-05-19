@@ -1,6 +1,6 @@
-@(academics: List[Academic], user: models.User)
+@(academics: List[Academic], user: models.Users)
 @main("Academics catalogue", user) {
-<h2>All academics</h2>
+<h2><span class="glyphicon glyphicon-bookmark"></span> Academics</h2>
 <script>
 	function del(urlToDelete) {
 		$.ajax({

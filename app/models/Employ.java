@@ -5,6 +5,8 @@ import javax.persistence.*;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+
+import com.avaje.ebean.*;
  
 @Entity
 public class Employ extends Model
@@ -23,6 +25,7 @@ public class Employ extends Model
     public String email;
 
     @Constraints.Required
+    @Formats.DateTime(pattern="dd-MM-yyyy")
     public Date birthday = new Date();
 
     @Constraints.Required
@@ -31,7 +34,6 @@ public class Employ extends Model
     @Constraints.Required
     public boolean gender;
 
-    @Constraints.Required
     public String workplace;
 
     @Constraints.Required
@@ -85,5 +87,14 @@ public class Employ extends Model
 
     public static Employ findByEmail(String email) {
         return find.where().eq("email", email).findUnique();
+    }
+
+    public static Page<Employ> page(int page, int pageSize, String sortBy,
+        String order, String filter) {
+        String filterLike = "name like \'%" + filter + "%\' OR email like \'%" + filter + "%\' OR address like \'%" + filter + "%\' OR workplace like \'%" + filter + "%\'";
+        return find.where(filterLike)
+                    .orderBy(sortBy + " " + order)
+                    .findPagingList(pageSize)
+                    .getPage(page);
     }
 }

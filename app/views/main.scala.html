@@ -1,4 +1,4 @@
-@(title: String, current_user: models.User)(content: Html)
+@(title: String, current_user: models.Users)(content: Html)
 
 <!DOCTYPE html>
 <html>
@@ -8,40 +8,52 @@
     <!-- <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'> -->
     <link href='@routes.Assets.at("bootstrap/css/bootstrap.min.css")' rel="stylesheet" media="screen">
     <link href='@routes.Assets.at("stylesheets/main.css")' rel="stylesheet" media="screen">
+    <link href='@routes.Assets.at("bootstrap/css/datepicker.css")' rel="stylesheet" media="screen">
     <script type='text/javascript' src='@routes.Assets.at("bootstrap/js/jquery-1.11.2.min.js")'></script>
+    <script type='text/javascript' src='@routes.Assets.at("bootstrap/js/bootstrap-datepicker.js")'></script>
     <script type='text/javascript' src='@routes.Assets.at("bootstrap/js/bootstrap.js")'></script>
+    <script>
+    $(function() {
+      $( ".datepicker" ).datepicker({
+        format: 'dd-mm-yyyy',
+      });
+    });
+    </script>
 </head>
 <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
         <nav>
           <ul class="nav navbar-nav navbar-left">
-            <li><a href="@routes.Employs.index">Home</a></li>
+            <li><a href="@routes.Employs.index" class="glyphicon glyphicon-home"> Home</a></li>
             @if(current_user.admin == true) {
-              <li><a href="@routes.Users.index">Users</a></li>
-              <li><a href="@routes.Academics.index">Academics</a></li>
-              <li><a href="@routes.Contracts.index">Contracts</a></li>
-              <li><a href="@routes.Degrees.index">Degrees</a></li>
-              <li><a href="@routes.Depts.index">Depts</a></li>
+              <li><a href="@routes.User.index" class="glyphicon glyphicon-user"> Users</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown" role="button" aria-expanded="false"> Setting<span class="glyphicon glyphicon-menu-down"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="@routes.Academics.index" class="glyphicon glyphicon-folder-open"> Academics</a></li>
+                  <li><a href="@routes.Contracts.index" class="glyphicon glyphicon-folder-open"> Contracts</a></li>
+                  <li><a href="@routes.Degrees.index" class="glyphicon glyphicon-folder-open"> Degrees</a></li>
+                  <li><a href="@routes.Depts.index" class="glyphicon glyphicon-folder-open"> Depts</a></li>
+                </ul>
+              </li>
             }
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="@routes.Users.edit(current_user.id)">@current_user.email</a></li>
-            <li><a href="@routes.Application.logout">Sign out</a></li>
+            <li><a href="@routes.User.edit(current_user.id)" class="glyphicon glyphicon-envelope"> @current_user.email</a></li>
+            <li><a href="@routes.Application.logout" class="glyphicon glyphicon-log-out"> Signout</a></li>
         </nav>
-      </div>
     </header>
-    @if(flash.containsKey("success")){
-      <div class="alert alert-success">
-        @flash.get("success")
-      </div>
-    }
-    @if(flash.containsKey("error")){
-      <div class="alert alert-error">
-        @flash.get("error")
-      </div>
-    }
-    <div class="container">
+    <div class="container content">
+        @if(flash.containsKey("success")){
+          <div class="alert alert-success">
+            @flash.get("success")
+          </div>
+        }
+        @if(flash.containsKey("error")){
+          <div class="alert alert-error">
+            @flash.get("error")
+          </div>
+        }
         @content
     </div>
 </body>

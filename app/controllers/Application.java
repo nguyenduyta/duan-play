@@ -39,7 +39,7 @@ public class Application extends Controller {
 		public String password;
 
 		public String validate() {
-			if (!User.authenticate(email, password)) {
+			if (!Users.authenticate(email, password)) {
 			  return "Invalid email or password";
 			}
 			return null;
